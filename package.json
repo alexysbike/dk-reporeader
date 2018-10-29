@@ -2,6 +2,7 @@
   "name": "dk-reporeader",
   "version": "0.0.1",
   "private": true,
+  "homepage": "/dk-reporeader",
   "dependencies": {
     "@blueprintjs/core": "^3.2.0",
     "@blueprintjs/icons": "^3.0.0",
