@@ -1,0 +1,46 @@
+.multi-select-menu {
+  min-width: 250px;
+  max-width: 350px;
+
+  .item-list {
+    max-height: 300px;
+    overflow-y: auto;
+
+    &.short-list {
+      max-height: 200px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: $light-gray5;
+      border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar {
+      margin-left: 5px;
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $light-gray4;
+      border-radius: 6px;
+    }
+  }
+
+  .search-input .bp3-input {
+    &:focus {
+      -webkit-box-shadow: 0 0 0 0 $blue5,  0 0 0 0 rgba(19, 124, 189, 0.3), inset 0 0 0 1px rgba(16, 22, 26, 0.2), inset 0 1px 1px rgba(16, 22, 26, 0.2);
+      box-shadow: 0 0 0 0 $blue5,  0 0 0 0 rgba(19, 124, 189, 0.3), inset 0 0 0 1px rgba(16, 22, 26, 0.2), inset 0 1px 1px rgba(16, 22, 26, 0.2);
+    }
+  }
+
+  .multi-select-menu-buttons {
+    background-color: unset;
+    line-height: 16px;
+
+    .tag-button {
+      min-width: 45px;
+      margin-right: 5px;
+      text-align: center;
+    }
+  }
+}
