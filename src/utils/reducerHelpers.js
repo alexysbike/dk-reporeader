@@ -10,7 +10,7 @@ export const keyReduceFunction = (operation, value) => (acum, key, index, array)
 };
 
 export const reducerMaker = defaultValue => operation => (...keys) => (state, _value) => {
-  const value = _value || defaultValue;
+  const value = _value !== undefined ? _value : defaultValue;
   return update(state, keys.reduceRight(keyReduceFunction(operation, value), {}));
 };
 

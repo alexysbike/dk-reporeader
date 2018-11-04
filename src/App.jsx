@@ -9,6 +9,12 @@ import Editor from './components/Editor';
 import { getQueryVariable } from './utils/helpers';
 
 const P = didSubscribe(({ branch: defaultBranch }, { dispatch }) => {
+  const code = getQueryVariable('code');
+  const state = getQueryVariable('state');
+  if (code && state) {
+    dispatch.app.generateToken({ code, state });
+  }
+
   const _repo = getQueryVariable('repo');
   if (_repo) {
     const parts = _repo.split('/');
