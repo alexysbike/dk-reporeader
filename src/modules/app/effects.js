@@ -1,17 +1,14 @@
-import { map, prop, compose, flatten } from 'ramda';
+import { map, prop } from 'ramda';
 import AuthService from '../../services/auth';
 import Api from '../../services/api';
 
 const nameMap = map(prop('name'));
 
-const reposJoiner = compose(
-  map((repository) => {
-    const { full_name: fullName } = repository;
-    const [owner, repo] = fullName.split('/');
-    return { owner, repo, fullName };
-  }),
-  flatten,
-);
+const reposMapper = map((repository) => {
+  const { full_name: fullName } = repository;
+  const [owner, repo] = fullName.split('/');
+  return { owner, repo, fullName };
+});
 
 const effects = {
   async generateToken({ code, state }) {
@@ -38,10 +35,9 @@ const effects = {
       try {
         const userInfo = await Api.getUserInfo();
         this.setUserLogin(userInfo.login);
-        const userRepos = await Api.getUrl(userInfo.repos_url);
-        const orgsInfo = await Api.getUserOrgs();
-        const orgsRepos = await Promise.all(orgsInfo.map(org => Api.getUrl(org.repos_url)));
-        const repositories = reposJoiner([userRepos, ...orgsRepos]);
+        // TODO: refactor to use /user/repos with pagination in reponse header Links
+        const userRepos = await Api.getUserRepos();
+        const repositories = reposMapper(userRepos);
         this.setRepositories(repositories);
         if (resolve) resolve();
       } catch (error) {

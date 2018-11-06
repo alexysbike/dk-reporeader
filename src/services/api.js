@@ -41,12 +41,9 @@ class Api {
     return resolver(axios.get(`${API}/user`, optionsMaker()));
   }
 
-  static getUserOrgs() {
-    return resolver(axios.get(`${API}/user/orgs`, optionsMaker()));
-  }
-
-  static getUrl(url) {
-    return resolver(axios.get(url, optionsMaker()));
+  // TODO: implement pagination using Link response header
+  static getUserRepos() {
+    return resolver(axios.get(`${API}/user/repos?per_page=200`, optionsMaker()));
   }
 }
 
