@@ -1,0 +1,15 @@
+{
+  "short_name": "DKRR",
+  "name": "DK Repo Reader",
+  "icons": [
+    {
+      "src": "favico.png",
+      "sizes": "250x250",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "./index.html",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
