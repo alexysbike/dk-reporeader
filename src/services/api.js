@@ -36,6 +36,18 @@ class Api {
       state,
     }));
   }
+
+  static getUserInfo() {
+    return resolver(axios.get(`${API}/user`, optionsMaker()));
+  }
+
+  static getUserOrgs() {
+    return resolver(axios.get(`${API}/user/orgs`, optionsMaker()));
+  }
+
+  static getUrl(url) {
+    return resolver(axios.get(url, optionsMaker()));
+  }
 }
 
 export default Api;

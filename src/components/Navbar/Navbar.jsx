@@ -12,6 +12,8 @@ import { attach } from 'proppy-react';
 import logo from '../../assets/img/logo.png';
 import AuthService from '../../services/auth';
 import BranchesMenu from './components/BranchesMenu';
+import RepositoriesMenu from './components/RepositoriesMenu';
+import ToastService from '../../services/toaster';
 
 const P = withHandlers({
   logout: (useless, { dispatch }) => () => {
@@ -25,9 +27,26 @@ const P = withHandlers({
     dispatch.app.setBranch(branch);
     dispatch.tree.getItem({ parent: null, type: 'tree' });
   },
+  onRepositoryClick: (useless, { dispatch }) => ({ repo, owner }) => {
+    const { resolve: toastDone, reject } = ToastService.showLoading('repo-load', 'Loading...', 'Loaded Successfully');
+    dispatch.app.setOwner(owner);
+    dispatch.app.setRepo(repo);
+    const resolve = () =>
+      dispatch.tree.getItem({ parent: null, type: 'tree', resolve: toastDone });
+    dispatch.app.getRepo({ resolve, reject, useDefault: true });
+  },
 });
 
-const Navbar = ({ isLogged, logout, owner, repo, goRepo, onBranchClick }) => (
+const Navbar = ({
+  isLogged,
+  logout,
+  owner,
+  repo,
+  goRepo,
+  onBranchClick,
+  onRepositoryClick,
+  userLogin,
+}) => (
   <NavbarBlu style={{ marginBottom: 10 }}>
     <Container fluid className="app-navbar-container">
       <NavbarGroup>
@@ -44,10 +63,11 @@ const Navbar = ({ isLogged, logout, owner, repo, goRepo, onBranchClick }) => (
         <BranchesMenu onBranchClick={onBranchClick} />
       </NavbarGroup>
       <NavbarGroup align={Alignment.RIGHT}>
+        <RepositoriesMenu onClick={onRepositoryClick} />
         {!isLogged ? (
           <Button text="Login in Github" intent={Intent.SUCCESS} onClick={AuthService.initialize} />
         ) : (
-          <Button text="Logout" onClick={logout} />
+          <Button text={`${userLogin} Logout`} onClick={logout} />
         )}
       </NavbarGroup>
     </Container>
@@ -55,18 +75,23 @@ const Navbar = ({ isLogged, logout, owner, repo, goRepo, onBranchClick }) => (
 );
 
 Navbar.propTypes = {
+  userLogin: PropTypes.string,
   owner: PropTypes.string.isRequired,
   repo: PropTypes.string.isRequired,
   isLogged: PropTypes.bool.isRequired,
   logout: PropTypes.func.isRequired,
   goRepo: PropTypes.func.isRequired,
   onBranchClick: PropTypes.func.isRequired,
+  onRepositoryClick: PropTypes.func.isRequired,
 };
 
-Navbar.defaultProps = {};
+Navbar.defaultProps = {
+  userLogin: '',
+};
 
 const mapStateToProps = state => ({
   isLogged: state.app.isLogged,
+  userLogin: state.app.userLogin,
   owner: state.app.owner,
   repo: state.app.repo,
 });

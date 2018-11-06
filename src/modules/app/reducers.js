@@ -7,6 +7,8 @@ export const initialState = {
   branches: [],
   isLogged: !!localStorage.getItem('github-login-access_token'),
   repoId: 150167756,
+  repositories: [],
+  userLogin: null,
 };
 
 export const reducers = {
@@ -16,4 +18,6 @@ export const reducers = {
   setBranches: regularSetReducer('branches'),
   setIsLogged: regularSetReducer('isLogged'),
   setRepoId: regularSetReducer('repoId'),
+  setRepositories: regularSetReducer('repositories'),
+  setUserLogin: regularSetReducer('userLogin'),
 };

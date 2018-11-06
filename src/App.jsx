@@ -33,6 +33,9 @@ const P = didSubscribe(({ branch: defaultBranch }, { dispatch }) => {
   const resolve = () =>
     dispatch.tree.getItem({ parent: null, type: 'tree' });
   dispatch.app.getRepo({ resolve, useDefault: !_branch });
+
+  // Get user info
+  dispatch.app.getRepositoriesFromUser();
 });
 
 const App = () => (
