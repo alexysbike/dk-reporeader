@@ -1,7 +1,8 @@
 import Api from '../../services/api';
 
 const effects = {
-  async getItem({ sha, parent, type, resolve }, { app: { owner, repo } }) {
+  async getItem({ sha: _sha, parent, type, resolve }, { app: { owner, repo, branch } }) {
+    const sha = _sha || branch;
     const tree = type === 'tree'
       ? await Api.getTree(owner, repo, sha)
       : await Api.getBlob(owner, repo, sha);

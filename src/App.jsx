@@ -26,10 +26,13 @@ const P = didSubscribe(({ branch: defaultBranch }, { dispatch }) => {
     }
   }
 
+  // Opening repository coming from query params
   const _branch = getQueryVariable('branch');
   const branch = _branch || defaultBranch;
   dispatch.app.setBranch(branch);
-  dispatch.tree.getItem({ sha: branch, parent: null, type: 'tree' });
+  const resolve = () =>
+    dispatch.tree.getItem({ parent: null, type: 'tree' });
+  dispatch.app.getRepo({ resolve, useDefault: !_branch });
 });
 
 const App = () => (

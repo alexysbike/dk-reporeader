@@ -17,6 +17,12 @@ const optionsMaker = () => {
 };
 
 class Api {
+  static getRepo(owner, repo) {
+    return resolver(axios.get(`${API}/repos/${owner}/${repo}`, optionsMaker()));
+  }
+  static getBranches(owner, repo) {
+    return resolver(axios.get(`${API}/repos/${owner}/${repo}/branches`, optionsMaker()));
+  }
   static getTree(owner, repo, sha) {
     return resolver(axios.get(`${API}/repos/${owner}/${repo}/git/trees/${sha}`, optionsMaker()));
   }
