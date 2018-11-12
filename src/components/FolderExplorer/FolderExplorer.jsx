@@ -25,13 +25,16 @@ const P = withHandlers({
       resolve();
     }
   },
-  clickHandler: ({ treeNodes }, { dispatch }) => ({ id: sha, parent, type, path }) => {
+  clickHandler: ({ treeNodes, tabs }, { dispatch }) => ({ id: sha, parent, type, path }) => {
     if (type === 'blob') {
       if (!treeNodes[sha]) {
         dispatch.tree.getItem({ sha, parent, type });
       }
       dispatch.tree.setSelectedSha(sha);
       dispatch.tree.setSelectedName(path);
+      if (!tabs.includes(sha)) {
+        dispatch.app.addTabs([sha]);
+      }
     }
   },
 });
@@ -51,6 +54,7 @@ FolderExplorer.propTypes = {
   treeNodes: PropTypes.shape().isRequired,
   additionalData: PropTypes.shape().isRequired,
   nodes: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  tabs: PropTypes.arrayOf(PropTypes.string).isRequired,
   root: PropTypes.string,
   branch: PropTypes.string.isRequired,
   expanseHandler: PropTypes.func.isRequired,
@@ -67,6 +71,7 @@ const mapStateToProps = state => ({
   additionalData: state.tree.additionalData,
   root: state.tree.root,
   branch: state.app.branch,
+  tabs: state.app.tabs,
   nodes: treeModel.selectors.treeContentSelector(state),
 });
 

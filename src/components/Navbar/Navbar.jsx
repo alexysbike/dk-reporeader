@@ -9,7 +9,7 @@ import { IconNames } from '@blueprintjs/icons';
 import { connect } from 'react-redux';
 import { withHandlers } from 'proppy';
 import { attach } from 'proppy-react';
-import logo from '../../assets/img/logo.png';
+import logo from '../../assets/img/logodk.png';
 import AuthService from '../../services/auth';
 import BranchesMenu from './components/BranchesMenu';
 import RepositoriesMenu from './components/RepositoriesMenu';

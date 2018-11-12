@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import Navbar from './components/Navbar';
 import FolderExplorer from './components/FolderExplorer';
 import Editor from './components/Editor';
+import FileTabs from './components/FileTabs';
 import { getQueryVariable } from './utils/helpers';
 
 const P = didSubscribe(({ branch: defaultBranch }, { dispatch }) => {
@@ -57,6 +58,7 @@ const App = () => (
           <FolderExplorer />
         </Column>
         <Column nine>
+          <FileTabs />
           <div style={{ width: '100%', height: '100%' }}>
             <Editor />
           </div>

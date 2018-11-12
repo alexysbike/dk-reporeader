@@ -1,4 +1,4 @@
-import { regularSetReducer } from '../../utils/reducerHelpers';
+import { regularSetReducer, spliceReducer, regularPushReducer, arraySetReducer } from '../../utils/reducerHelpers';
 
 export const initialState = {
   owner: 'alexysbike',
@@ -9,6 +9,7 @@ export const initialState = {
   repoId: 150167756,
   repositories: [],
   userLogin: null,
+  tabs: [],
 };
 
 export const reducers = {
@@ -20,4 +21,7 @@ export const reducers = {
   setRepoId: regularSetReducer('repoId'),
   setRepositories: regularSetReducer('repositories'),
   setUserLogin: regularSetReducer('userLogin'),
+  addTabs: regularPushReducer('tabs'),
+  removeTab: spliceReducer('tabs'),
+  resetTab: arraySetReducer('tabs'),
 };
